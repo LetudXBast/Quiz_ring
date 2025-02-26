@@ -540,6 +540,6 @@ function updateProgressRing(score, total) {
         // ✅ Mise à jour du texte central (affiché légèrement avant la fin complète)
         setTimeout(() => {
             scoreText.innerText = `${score} / ${total}`;
-        }, filledSegments * 370 + 400);
+        }, filledSegments * 370 /2);
     }, 100);
 }

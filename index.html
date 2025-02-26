@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Cristallisation industrielle fork</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+
+<div id="time-up-message" class="hidden">⏳ Temps écoulé !</div>
+
+<div id="background"></div> 
+
+<header>
+    <h1>Quiz sur la Cristallisation Industrielle</h1>
+<div id="theme-toggle">
+    <div class="toggle-slider">
+        <span id="theme-icon">🌙</span>
+    </div>
+</div>
+<nav>
+    <button onclick="showSection('home')">Accueil</button>
+    <button onclick="showSection('course')">Cours</button>
+    <button onclick="showSection('quiz')">Quiz</button>
+    <button onclick="showSection('scores')">Scores</button>
+    <button onclick="showSection('account')">Mon Compte</button>
+</nav>
+
+</header>
+
+<main>
+    <!-- Page d'accueil -->
+    <section id="home">
+        <h2><i class="fas fa-home"></i> Bienvenue </h2>
+        <p>Apprenez la cristallisation industrielle et testez vos connaissances avec notre quiz interactif !</p>
+        <a href="document.pdf" download class="download-btn">📄 Télécharger le PDF</a>
+    </section>
+
+    <!-- Section Cours -->
+    <section id="course" class="hidden">
+        <h2><i class="fas fa-book"></i> Cours sur la Cristallisation</h2>
+        <p>La cristallisation industrielle est un processus chimique utilisé pour purifier des substances...</p>
+    </section>
+
+    <!-- Section Quiz -->
+    <section id="quiz" class="hidden">
+        <div id="pseudo-container">
+            <label for="pseudo">Entrez votre pseudo : </label>
+            <input type="text" id="pseudo" placeholder="Votre pseudo..." maxlength="20">
+        </div>
+
+        <h2><i class="fas fa-question-circle"></i> Choisissez un niveau </h2>
+        <div class="level-buttons">
+            <button onclick="startQuiz('beginner')">Débutant</button>
+            <button onclick="startQuiz('intermediate')">Intermédiaire</button>
+            <button onclick="startQuiz('advanced')">Confirmé</button>
+        </div>
+
+        <div id="timer-container">
+            <div id="timer-text">05:00</div>
+            <div id="timer-bar"></div>
+        </div>
+
+        <div id="quiz-container" class="hidden">
+            <p id="question"></p>
+            <div id="answers"></div>
+            <button id="next-btn" class="hidden" onclick="nextQuestion()">Suivant</button>
+        </div>
+        <div id="quiz-result" class="hidden">
+            <h3>Votre score : <span id="score"></span></h3>
+
+          <div id="progress-ring-container">
+    <svg width="120" height="120">
+        <defs>
+            <!-- ✅ Quart 1 : Rouge → Rouge Orangé -->
+            <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="red"></stop>
+                <stop offset="100%" stop-color="orange"></stop> <!-- Rouge Orangé -->
+            </linearGradient>
+
+            <!-- ✅ Quart 2 : Rouge Orangé → Orange/Jaune -->
+            <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="yellow"></stop> <!-- Rouge Orangé -->
+                <stop offset="100%" stop-color="orange"></stop>
+            </linearGradient>
+
+            <!-- ✅ Quart 3 : Orange/Jaune → Jaune/Vert -->
+            <linearGradient id="gradient3" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#ADFF2F"></stop>
+                <stop offset="100%" stop-color="yellow"></stop>
+            </linearGradient>
+
+            <!-- ✅ Quart 4 : Jaune/Vert → Vert Puissant -->
+            <linearGradient id="gradient4" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#ADFF2F"></stop>
+                <stop offset="100%" stop-color="green"></stop>
+            </linearGradient>
+        </defs>
+        
+        <!-- ✅ 4 Quarts de Cercle avec Couleurs Personnalisées -->
+        <path id="segment1" d="M60,10 A50,50 0 0,1 110,60" stroke="url(#gradient1)"></path>
+        <path id="segment2" d="M110,60 A50,50 0 0,1 60,110" stroke="url(#gradient2)"></path>
+        <path id="segment3" d="M60,110 A50,50 0 0,1 10,60" stroke="url(#gradient3)"></path>
+        <path id="segment4" d="M10,60 A50,50 0 0,1 60,10" stroke="url(#gradient4)"></path>
+    </svg>
+    <div id="score-text"></div>
+</div>
+
+
+
+
+
+            <button onclick="restartQuiz()">Recommencer</button>
+            <button onclick="showSection('home')">Retour à l'accueil</button>
+        </div>
+    </section>
+
+    <!-- Section Scores -->
+    <section id="scores" class="hidden">
+        <h2><i class="fas fa-trophy"></i> Scores</h2>
+        <p>Dernier score : <span id="last-score">0</span></p>
+        <h3>Meilleurs scores</h3>
+        <ul id="best-scores"></ul>
+    </section>
+  
+<!-- Section Mon Compte (Respecte la mise en page des autres sections) -->
+<section id="account" class="hidden">
+     <h2><i class="fas fa-user"></i> Mon Compte</h2>
+        <button id="logout-btn" class="hidden" onclick="logoutUser()">🚪 Se Déconnecter</button>
+    </div>
+    <!-- Formulaire de connexion (affiché par défaut) -->
+    <div id="login-container">
+        <h3>Connexion</h3>
+        <input type="text" id="login-username" placeholder="Nom d'utilisateur" required>
+        <input type="password" id="login-password" placeholder="Mot de passe" required>
+        <button onclick="loginUser()">Se connecter</button>
+        <p>Pas encore inscrit ? <a href="#" onclick="toggleRegister()">S'inscrire</a></p>
+    </div>
+
+    <!-- Formulaire d'inscription (masqué par défaut) -->
+    <div id="register-container" class="hidden">
+        <h3>Inscription</h3>
+        <input type="text" id="register-username" placeholder="Nom d'utilisateur" required>
+        <input type="password" id="register-password" placeholder="Mot de passe" required>
+        <button onclick="registerUser()">S'inscrire</button>
+        <p>Déjà un compte ? <a href="#" onclick="toggleLogin()">Se connecter</a></p>
+    </div>
+
+    <!-- Zone de déconnexion (affichée uniquement si l'utilisateur est connecté) -->
+    <div id="download-container" class="hidden">
+        <p>Bienvenue, <span id="user-name"></span> !</p>
+        <button id="doc-access-btn" class="hidden" onclick="showSection('documents')">
+    📂 Accéder aux Documents
+</button>
+    </div>
+</section>
+
+<!-- Section Documents (réservée aux utilisateurs connectés) -->
+<section id="documents" class="hidden">
+    <h2>📂 Téléchargement de Documents</h2>
+    <p>Bienvenue <span id="user-doc-name"></span> ! Vous pouvez télécharger les documents suivants :</p>
+
+    <ul>
+        <li><a href="documents/document1.pdf" download>📄 Télécharger Document 1</a></li>
+      <br>
+        <li><a href="documents/document2.pdf" download>📄 Télécharger Document 2</a></li>
+      <br>
+        <li><a href="documents/document3.pdf" download>📄 Télécharger Document 3</a></li>
+    </ul>
+  <br>
+
+    <button onclick="showSection('account')">Retour à Mon Compte</button>
+</section>
+  
+  
+  
+<div id="visit-tooltip">
+    ℹ️
+    <span class="tooltip-text">👀 Nombre de visites : <span id="visit-count">0</span></span>
+</div>
+
+</main>
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+</body>
+</html>

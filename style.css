@@ -1,0 +1,596 @@
+body, html {
+    overflow: auto; /* Permet le scrolling manuel */
+    height: 100%;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: linear-gradient(135deg, #0D1B2A, #1B263B);
+    color: #E0E0E0;
+/*    background: linear-gradient(135deg, #0D1B2A, #1B263B); 
+    color: #FFFFFF;*/
+    margin: 0;
+    padding: 0;
+}
+
+/* 🟢 Effets néon sur les titres */
+h1, h2 {
+    text-shadow: 0px 0px 10px rgba(0, 255, 255, 0.6);
+}
+
+header {
+    position: fixed; /* Fixe l'en-tête en haut */
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1); /* Transparence légère */
+    backdrop-filter: blur(10px); /* Effet de flou pour donner un effet de verre */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3); /* Ajoute une bordure subtile */
+    color: white;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2); /* Ombre pour donner de la profondeur */
+    z-index: 1000;
+}
+
+
+/*header {
+    background: #007BFF;
+    color: white;
+    padding: 15px;
+}*/
+
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Espacement entre les boutons */
+}
+
+header h1, nav button {
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5); /* Ajoute une ombre pour rendre le texte plus lisible */
+}
+
+
+nav button {
+    background: grey;
+    border: none;
+    margin-right: 8px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+/*nav button:hover {
+    background: #ddd;
+}*/
+
+main {
+    padding-top: 140px;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+  height: 100vh;   /*Ajuste la hauteur en fonction de l’en-tête */
+   /* height: calc(100vh - 80px);   /* Ajuste la hauteur en fonction de l’en-tête */
+    display: flex;
+    justify-content: center;
+   /*  align-items: flex-start; Aligne toutes les sections en haut */
+    align-items: center;
+    overflow: visible;
+}
+
+section {
+    position: absolute;
+    top: 140px; /* Fixe la section à 140px du haut */
+    bottom: 10px; /* Fixe la section à 10px du bas */
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+/*Cache toutes les sections par défaut.*/
+    visibility: hidden;
+    opacity: 0;
+/*    transform: translateY(0);*/
+    display: flex;
+    flex-direction: column;
+  /*  justify-content: center;  Centre le texte verticalement */
+    align-items: center; /* Centre le texte horizontalement */
+    min-height: auto; /* Permettre à la section de grandir avec le contenu */
+    max-height: none; /* Supprime toute limitation de hauteur */
+    overflow: visible; /* Assurer que le contenu n'est pas caché */   /* min-height: 60vh;  Assure que toutes les sections ont une hauteur similaire */
+    width: 80%;
+    text-align: center; /* Pour éviter un texte trop large */
+    border-radius: 15px;
+    padding: 30px;
+    width: 80%;
+   /* max-width: 800px;*/
+    text-align: center;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3); /* Ombre pour donner de la profondeur */
+    margin: 30px auto;
+  
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out, visibility 0.5s;
+    transform: translateY(-100%);
+    overflow-y: auto; /* Permet le scrolling interne si la section est trop grande */
+    /*max-height: 100%;*/
+   /* max-height: 0; */ /*Cache tout le contenu*/
+}
+
+/* 🌟 Section active affichée en haut de la page */
+section.active {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+    overflow-y: auto; /* Active le scrolling uniquement si nécessaire */
+    height: auto;
+}
+
+/* 💡 Animation d’apparition en douceur */
+.hidden {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+    pointer-events: none; /* 🔹 Empêche toute interaction avec l'élément caché */
+}
+
+/* Quand l'élément redevient visible, pointer-events est automatiquement activé */
+:not(.hidden) {
+    pointer-events: auto; /* 🔹 Réactive automatiquement les interactions */
+}
+
+
+
+button:hover {
+    background: #0056b3;
+    transform: scale(1.1); /*augmenter taille bouton si souris passe dessus*/
+    box-shadow: 0px 8px 25px rgba(0, 123, 255, 0.8);
+ /*Apparemment tache d'ombre sur une case si souris passe dessus*/
+}
+
+button {
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(90deg, #007BFF, #00d4ff);
+    border: none;
+    padding: 12px 20px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 25px;
+    color: white;
+}
+
+
+#quiz-container {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 12px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+    max-width: 500px;
+    margin: auto;
+}
+#quiz-result {
+    animation: pop-in 0.5s ease-in-out;
+}
+
+@keyframes pop-in {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/*#quiz-container, #quiz-result {
+    margin-top: 20px;
+}*/
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+.correct {
+    background-color: #28a745 !important; /* Vert */
+    color: white;
+}
+
+.wrong {
+    background-color: #dc3545 !important; /* Rouge */
+    color: white;
+}
+
+#progress-bar {
+    height: 5px;
+    width: 0%;
+    background: #007BFF;
+    transition: width 0.5s;
+}
+
+
+
+/*Ajouter un timer barre de temps */
+#timer-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    position: relative;
+}
+
+#timer-text {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* 🟡 Effet néon sur la barre de progression */
+#timer-bar {
+    width: 100%;
+    height: 8px;
+    background: linear-gradient(90deg, #00ffcc, #0099ff);
+    box-shadow: 0px 0px 10px rgba(0, 255, 255, 0.8);
+    border-radius: 5px;
+    transition: width 1s linear;
+}
+
+#time-up-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 0, 0, 0.9);
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 20px 40px;
+    border-radius: 10px;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+#time-up-message.show {
+    opacity: 1;
+}
+
+#background {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+/*Téléchargement*/
+.download-btn {
+    display: inline-block;
+    background: linear-gradient(90deg, #007BFF, #00d4ff);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 12px 20px;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 5px 15px rgba(0, 123, 255, 0.5);
+}
+
+.download-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 8px 25px rgba(0, 123, 255, 0.8);
+}
+
+/*Ajouter un pseudo avant le quiz*/
+#pseudo-container {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+#pseudo {
+    width: 47%;
+    padding: 8px;
+    font-size: 16px;
+    border: 2px solid #007BFF;
+    border-radius: 5px;
+    outline: none;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+}
+
+#pseudo:focus {
+    border-color: #00d4ff;
+    box-shadow: 0px 0px 10px rgba(0, 212, 255, 0.6);
+}
+
+
+/* 🌟 Formulaires et boutons inscription*/ 
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+
+
+
+
+
+
+#visit-tooltip {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+    color: white;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 5px 10px;
+    border-radius: 50%;
+    text-align: center;
+    transition: background 0.3s ease-in-out;
+    opacity: 0.3;
+}
+
+#visit-tooltip:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.tooltip-text {
+    visibility: hidden;
+    width: 200px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 8px;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 120%;
+    right: 200%;
+    transform: translateX(50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 14px;
+}
+
+#visit-tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* 🌙 Mode Sombre */
+.dark-mode {
+    background: #121212;
+    color: #ffffff;
+}
+
+/* 🌞 Mode Clair */
+.light-mode {
+    background: #ffffff;
+    color: #121212;
+}
+
+/* 🌟 Conteneur du bouton */
+#theme-toggle {
+    position: fixed;
+    top: 15px;
+    right: 45px;
+    width: 50px;
+    height: 25px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 3px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+/* 🌞 Mode Clair : bouton noir */
+.light-mode #theme-toggle {
+    background: black;
+}
+
+/* 🌙 Mode Sombre : bouton blanc */
+.dark-mode #theme-toggle {
+    background: white;
+}
+
+/* 🌟 Curseur coulissant */
+.toggle-slider {
+    width: 20px;
+    height: 20px;
+  /*  background: white;*/
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    transition: transform 0.3s ease-in-out, background 0.3s ease-in-out;
+}
+
+/* 🌞 Position du curseur en mode clair */
+.light-mode .toggle-slider {
+    transform: translateX(25px);
+    background: white;
+    color: white;
+}
+
+/* 🌙 Position du curseur en mode sombre */
+.dark-mode .toggle-slider {
+    transform: translateX(0);
+    background: black;
+    color: white;
+}
+
+
+
+/* 🌟 Section Documents */
+#documents {
+    position: absolute;
+    top: 140px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    visibility: hidden;
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: auto;
+    max-height: 100vh;
+    overflow-y: auto;
+    width: 80%;
+    text-align: center;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    margin: 30px auto;
+  
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out, visibility 0.5s;
+    transform: translateY(-100%);
+}
+
+/* 🌟 Section active */
+section.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* 🌟 Liens de téléchargement */
+#documents ul {
+    list-style: none;
+    padding: 0;
+}
+
+#documents ul li {
+    margin: 10px 0;
+}
+
+#documents ul li a {
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(90deg, #007BFF, #00d4ff);
+    padding: 12px 20px;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 5px 15px rgba(0, 123, 255, 0.5);
+}
+
+#documents ul li a:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 8px 25px rgba(0, 123, 255, 0.8);
+}
+
+
+#download-container {
+    position: absolute;
+    top: 160px; /* 🔹 Positionne l'élément en haut */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    text-align: center;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#doc-access-btn {
+    margin-top: 10px; /* 🔹 Espacement entre les boutons */
+}
+
+/* 🌟 Aligner le bouton "Se Déconnecter" avec le titre */
+.account-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+
+
+
+
+/* 🌟 Style du bouton "Se Déconnecter" */
+#logout-btn {
+    background: red;
+    color: white;
+    font-size: 16px;
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s ease-in-out;
+}
+
+#logout-btn:hover {
+    background: darkred;
+}
+
+
+/*progress ring*/
+#progress-ring-container {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: auto;
+}
+
+svg {
+    transform: rotate(-0deg); /* ✅ Départ en haut */
+}
+
+path {
+    fill: none;
+    stroke-width: 10;
+    stroke-linecap: round;
+    stroke-dasharray: 79; /* ✅ 1/4 du cercle */
+    stroke-dashoffset: 79; /* ✅ Commence caché */
+    transition: stroke-dashoffset 0.5s ease-in-out;
+}
+
+#score-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+}
+
+
+
+
+
+
+
+/* Ajouter des frames pulsées avec une opacité changeante pour un effet dynamique
+/*#loading {
+    display: none;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    background: #007BFF;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 20px;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { opacity: 0.5; }
+}*/

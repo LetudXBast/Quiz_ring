@@ -8,8 +8,9 @@
 </head>
 <body>
 <!-- partial:index.partial.html -->
+   <!-- jour/nuit --> 
 <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
-
+    <!-- icones -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 
@@ -42,11 +43,24 @@
         <a href="document.pdf" download class="download-btn">📄 Télécharger le PDF</a>
     </section>
 
-    <!-- Section Cours -->
-    <section id="course" class="hidden">
-        <h2><i class="fas fa-book"></i> Cours sur la Cristallisation</h2>
-        <p>La cristallisation industrielle est un processus chimique utilisé pour purifier des substances...</p>
-    </section>
+ <!-- Section Cours -->
+<section id="course" class="hidden">
+    <h2><i class="fas fa-book"></i> Cours sur la Cristallisation</h2>
+    <p>La cristallisation industrielle est un processus chimique utilisé pour purifier des substances...</p>
+
+    <!-- ✅ Ajout de la vidéo YouTube -->
+    <div class="video-container">
+        <iframe 
+            width="560" height="315"
+            src="https://www.youtube.com/embed/YjrrpMN3vIg"
+            title="Cristallisation industrielle"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+        </iframe>
+    </div>
+</section>
+
 
     <!-- Section Quiz -->
     <section id="quiz" class="hidden">

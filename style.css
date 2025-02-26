@@ -570,6 +570,19 @@ path {
     color: white;
 }
 
+.video-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px; /* ✅ Largeur max */
+    margin: 20px auto; /* ✅ Centrer la vidéo */
+}
+
+.video-container iframe {
+    width: 100%; /* ✅ Adaptation responsive */
+    height: 450px;
+    border-radius: 10px; /* ✅ Coins arrondis pour un design épuré */
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3); /* ✅ Effet d'ombre */
+}
 
 
 
